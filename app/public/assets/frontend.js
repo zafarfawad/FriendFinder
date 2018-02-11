@@ -22,6 +22,9 @@ $("#submitButton").on("click", function (event) {
 
     $.post("/api/friends", currentSurvey,function(data){
 
+        alert("this works");
+
+// when on click on the button, read data from the form put it in object and hit the route
     })
 
 });

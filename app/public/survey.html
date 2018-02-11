@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+</head>
+
+
 </head>
 
 <body>
@@ -20,7 +25,7 @@
 
                 <label for="sel1">Your mind is always buzzing with unexplored ideas and plans.</label>
                 <select class="form-control" id="sel1">
-                    <option value= "">Please select..</option>
+                    <option value="">Please select..</option>
                     <option value="1">1 (Strongly Disagree)</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -165,10 +170,67 @@
             </div>
         </form>
     </div>
-    <button type="button" id = "submitButton" class="btn btn-primary center-block btn-danger">Submit</button>
+    <button type="button" id="submitButton" class="btn btn-primary center-block btn-danger">Submit</button>
 
-    <script src="/assets/frontend.js"></script> -->
+
+    <!-- Modal content-->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Your Best Match</h4>
+                </div>
+                <div class="modal-body">
+                    <h1 id="matchName"> </h1>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        $("#submitButton").on("click", function (event) {
+            event.preventDefault(); // Here we grab the form elements var currentSurvey
+            var currentSurvey = {
+                selection1: parseInt($("#sel1").val().trim(), 10),
+                selection2: parseInt($("#sel2").val().trim(), 10),
+                selection3: parseInt($("#sel3").val().trim(), 10),
+                selection4: parseInt($("#sel4").val().trim(), 10),
+                selection5: parseInt($("#sel5").val().trim(), 10),
+                selection6: parseInt($("#sel6").val().trim(), 10),
+                selection7: parseInt($("#sel7").val().trim(), 10),
+                selection8: parseInt($("#sel8").val().trim(), 10),
+                selection9: parseInt($("#sel9").val().trim(), 10),
+                selection10: parseInt($("#sel10").val().trim(), 10)
+            };
+
+
+
+
+            $.post("/api/friends", currentSurvey, function (data) {
+                // alert("this works"); 
+
+                $("#matchName").text(data.name);
+                $("#myModal").modal();
+
+                console.log("front end", data.name);
+
+            });
+
+        });
+    </script>
+
+
+
+
+
+    <!-- <script src="app/public/assets/frontend.js"></script> -->-->
 </body>
 
 </html>
-
